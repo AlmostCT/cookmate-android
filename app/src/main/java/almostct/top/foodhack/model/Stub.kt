@@ -28,7 +28,7 @@ data class ReceiptStep(
     val stepId: Int,
     val shortDescription: String,
     val longDescription: String,
-    val time: Long,
+    val time: Long, // seconds
     val products: List<Product>
 ) : Parcelable
 

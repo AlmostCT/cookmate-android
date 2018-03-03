@@ -6,6 +6,7 @@ import almostct.top.foodhack.model.Receipt
 import almostct.top.foodhack.ui.common.InjectableActivity
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.os.Handler
 import android.support.v4.app.NavUtils
 import android.support.v4.view.GestureDetectorCompat
@@ -14,9 +15,11 @@ import android.view.GestureDetector
 import android.view.MenuItem
 import android.view.MotionEvent
 import android.view.View
+import android.widget.ProgressBar
 import android.widget.TextView
 import com.marcinmoskala.activitystarter.argExtra
 import icepick.State
+import kotterknife.bindView
 import java.lang.Math.abs
 
 
@@ -30,14 +33,18 @@ class CookingActivity : InjectableActivity() {
     var currentRecipe: Receipt by argExtra()
 
     private val mHideHandler = Handler()
-    private lateinit var mContentView: TextView
+    private lateinit var mContentView: View
+    private val contentText by bindView<TextView>(R.id.fullscreen_content_text)
+    private val progress by bindView<ProgressBar>(R.id.step_progress)
+    private val countdownText by bindView<TextView>(R.id.step_countdown)
+
     private val mHidePart2Runnable = Runnable {
         // Delayed removal of status and navigation bar
 
         // Note that some of these constants are new as of API 16 (Jelly Bean)
         // and API 19 (KitKat). It is safe to use them, as they are inlined
         // at compile-time and do nothing on earlier devices.
-        mContentView!!.systemUiVisibility = (View.SYSTEM_UI_FLAG_LOW_PROFILE
+        mContentView.systemUiVisibility = (View.SYSTEM_UI_FLAG_LOW_PROFILE
                 or View.SYSTEM_UI_FLAG_FULLSCREEN
                 or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                 or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
@@ -75,7 +82,7 @@ class CookingActivity : InjectableActivity() {
 
         mVisible = true
         mControlsView = findViewById(R.id.fullscreen_content_controls)
-        mContentView = findViewById(R.id.fullscreen_content) as TextView
+        mContentView = findViewById(R.id.fullscreen_content)
 
         // Set up the user interaction to manually show or hide the system UI.
         mContentView.setOnClickListener { toggle() }
@@ -108,7 +115,9 @@ class CookingActivity : InjectableActivity() {
         // created, to briefly hint to the user that UI controls
         // are available.
         delayedHide(100)
-        updateUI()
+
+        if (savedInstanceState == null) currentStepTimeLeft = currentRecipe.steps[currentStep].time
+        updateStep()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -180,6 +189,8 @@ class CookingActivity : InjectableActivity() {
          * and a change of the status and navigation bar.
          */
         private val UI_ANIMATION_DELAY = 300
+
+        private const val LOG_TAG = "COOKING"
     }
 
     /// === START USER SHIT ===
@@ -188,17 +199,56 @@ class CookingActivity : InjectableActivity() {
     @State
     var currentStep: Int = 0
 
-    private fun nextStep() {
-        currentStep = (currentStep + 1).coerceIn(0, currentRecipe.steps.size - 1)
-        updateUI()
+    @JvmField
+    @State
+    var currentStepTimeLeft: Long = 0
+
+    private lateinit var countDown: CountDownTimer
+
+    private fun nextStep() = incState(1)
+
+    private fun previousStep() = incState(-1)
+
+    private fun incState(delta: Int) {
+        currentStep = (currentStep + delta).coerceIn(0, currentRecipe.steps.size - 1)
+        currentStepTimeLeft = currentRecipe.steps[currentStep].time
+        if (currentStepTimeLeft == 0L) { // no time on this step
+            countdownText.visibility = View.GONE
+        } else {
+            countdownText.visibility = View.VISIBLE
+        }
+        countDown.cancel()
+        updateStep()
     }
 
-    private fun previousStep() {
-        currentStep = (currentStep - 1).coerceIn(0, currentRecipe.steps.size - 1)
-        updateUI()
+    private fun percentage(a: Long, b: Long) = 100 - (a.toDouble() / b.toDouble() * 100).toInt()
+
+    private fun formatSeconds(sec: Long) =
+        "${(sec / 60).toString().padStart(2, '0')}:${(sec % 60).toString().padStart(2, '0')}"
+
+    private fun updateStep() {
+        contentText.text = currentRecipe.steps[currentStep].longDescription
+        val totalTime = currentRecipe.steps[currentStep].time
+        progress.setProgress(percentage(currentStepTimeLeft, totalTime), false)
+        countdownText.text = formatSeconds(currentStepTimeLeft)
+        countDown = object : CountDownTimer(currentStepTimeLeft * 1000, 1000) {
+            override fun onFinish() {
+                Log.d(LOG_TAG, "Finish")
+                currentStepTimeLeft = 0
+            }
+
+            override fun onTick(millisUntilFinished: Long) {
+                Log.d(LOG_TAG, "on timer tick: $millisUntilFinished")
+                currentStepTimeLeft -= 1
+                progress.setProgress(percentage(currentStepTimeLeft, totalTime), false)
+                countdownText.text = formatSeconds(currentStepTimeLeft)
+            }
+        }
+        countDown.start()
     }
 
-    private fun updateUI() {
-        mContentView.text = currentRecipe.steps[currentStep].longDescription
+    override fun onBackPressed() {
+        countDown.cancel()
+        super.onBackPressed()
     }
 }
