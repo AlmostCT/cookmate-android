@@ -13,10 +13,10 @@ class App: Application() {
 
     override fun onCreate() {
         super.onCreate()
-        initializeDagger()
+        initialize()
     }
 
-    private fun initializeDagger() {
+    private fun initialize() {
         client = Retrofit.Builder().baseUrl("https://jsonplaceholder.typicode.com/")
             .addConverterFactory(JacksonConverterFactory.create(jacksonObjectMapper()))
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

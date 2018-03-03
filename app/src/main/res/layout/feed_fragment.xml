@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/feed_header1"
+            style="@style/FeedTitle"
+            android:paddingTop="@dimen/big_padding"
+            android:text="@string/feed_rotm" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/feed_recipes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </android.support.v7.widget.RecyclerView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/feed_header2"
+            style="@style/FeedTitle"
+            android:text="@string/feed_news_str" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/feed_news"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </android.support.v7.widget.RecyclerView>
+    </LinearLayout>
+</ScrollView>
