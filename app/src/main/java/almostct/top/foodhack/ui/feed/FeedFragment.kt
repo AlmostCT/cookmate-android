@@ -3,6 +3,7 @@ package almostct.top.foodhack.ui.feed
 import almostct.top.foodhack.R
 import almostct.top.foodhack.model.FeedNewsElement
 import almostct.top.foodhack.model.FeedRecipeElement
+import almostct.top.foodhack.ui.recipe.RecipeActivityStarter
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.CardView
@@ -64,11 +65,7 @@ class FeedFragment private constructor() : Fragment() {
             holder.imageView.setImageResource(img)
 
             holder.cardView.setOnClickListener {
-                Toast.makeText(
-                    this@FeedFragment.context,
-                    holder.textView.text.toString(),
-                    Toast.LENGTH_SHORT
-                ).show()
+                RecipeActivityStarter.start(this@FeedFragment.context, position.toString(), horizontalList[position])
             }
         }
 

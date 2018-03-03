@@ -1,8 +1,20 @@
 <resources>
     <string name="app_name">FoodHack</string>
     <string name="title_home">Feed</string>
+    <string name="title_share">Share</string>
     <string name="title_dashboard">Coming soon</string>
     <string name="title_notifications">Notifications</string>
     <string name="feed_rotm">Recipes of the month</string>
     <string name="feed_news_str">News</string>
+    <string name="title_activity_recipe">RecipeActivity</string>
+
+    <string name="recipe_general_info_cooktime"><b>Cook time: </b></string>
+    <string name="recipe_general_info_weight"><b>Weight: </b></string>
+    <string name="recipe_energy_info_header"><b>Energy info</b></string>
+    <string name="recipe_energy_description_header"><b>Description</b></string>
+    <string name="recipe_energy_info_calories"><b>Calories</b></string>
+    <string name="recipe_energy_info_b"><b>Proteins</b></string>
+    <string name="recipe_energy_info_j"><b>Fats</b></string>
+    <string name="recipe_energy_info_u"><b>Carbons</b></string>
+    <string name="start">Start!</string>
 </resources>

@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="almostct.top.foodhack.ui.recipe.RecipeActivity"
+    tools:showIn="@layout/activity_recipe">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:scaleType="centerCrop"
+            android:layout_height="@dimen/recipe_img_height"
+            android:src="@drawable/mock_food_1"
+            android:layout_marginBottom="@dimen/medium_padding" />
+
+        <TextView
+            android:id="@+id/recipe_general_info"
+            android:padding="@dimen/medium_padding"
+            android:textSize="16sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <include layout="@layout/separator" />
+
+        <TextView
+            android:padding="@dimen/medium_padding"
+            android:textSize="16sp"
+            android:text="@string/recipe_energy_info_header"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <!-- TABLE -->
+
+        <GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:columnCount="4"
+            android:orientation="horizontal">
+
+            <!-- HEADER -->
+
+            <TextView
+                android:padding="@dimen/medium_padding"
+                android:textSize="16sp"
+                android:text="@string/recipe_energy_info_calories"
+                android:layout_gravity="center"
+                android:layout_columnWeight="1"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:padding="@dimen/medium_padding"
+                android:textSize="16sp"
+                android:gravity="center"
+                android:text="@string/recipe_energy_info_b"
+                android:layout_gravity="fill"
+                android:layout_columnWeight="1"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:padding="@dimen/medium_padding"
+                android:textSize="16sp"
+                android:gravity="center"
+                android:text="@string/recipe_energy_info_j"
+                android:layout_gravity="fill"
+                android:layout_columnWeight="1"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:padding="@dimen/medium_padding"
+                android:textSize="16sp"
+                android:gravity="center"
+                android:text="@string/recipe_energy_info_u"
+                android:layout_gravity="fill"
+                android:layout_columnWeight="1"
+                android:layout_height="wrap_content" />
+
+            <!-- INFO -->
+
+            <TextView
+                android:padding="@dimen/medium_padding"
+                android:textSize="16sp"
+                android:gravity="center"
+                android:id="@+id/recipe_energy_info_calories"
+                android:layout_gravity="fill"
+                android:layout_columnWeight="1"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:padding="@dimen/medium_padding"
+                android:textSize="16sp"
+                android:gravity="center"
+                android:id="@+id/recipe_energy_info_b"
+                android:layout_gravity="fill"
+                android:layout_columnWeight="1"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:padding="@dimen/medium_padding"
+                android:textSize="16sp"
+                android:gravity="center"
+                android:id="@+id/recipe_energy_info_j"
+                android:layout_gravity="fill"
+                android:layout_columnWeight="1"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:padding="@dimen/medium_padding"
+                android:textSize="16sp"
+                android:gravity="center"
+                android:id="@+id/recipe_energy_info_u"
+                android:layout_gravity="fill"
+                android:layout_columnWeight="1"
+                android:layout_height="wrap_content" />
+        </GridLayout>
+
+        <include layout="@layout/separator" />
+
+        <TextView
+            android:padding="@dimen/medium_padding"
+            android:textSize="16sp"
+            android:text="@string/recipe_energy_description_header"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>
