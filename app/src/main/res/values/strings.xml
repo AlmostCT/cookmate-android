@@ -17,4 +17,8 @@
     <string name="recipe_energy_info_j"><b>Fats</b></string>
     <string name="recipe_energy_info_u"><b>Carbons</b></string>
     <string name="start">Start!</string>
+
+    <string name="title_activity_cooking">CookingActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 </resources>

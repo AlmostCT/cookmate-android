@@ -30,6 +30,11 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="almostct.top.foodhack.MainActivity" />
         </activity>
+        <activity
+            android:name=".ui.cooking.CookingActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_cooking"
+            android:theme="@style/FullscreenTheme"></activity>
     </application>
 
 </manifest>

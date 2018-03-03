@@ -2,6 +2,7 @@ package almostct.top.foodhack
 
 import almostct.top.foodhack.api.Client
 import android.app.Application
+import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -18,7 +19,14 @@ class App: Application() {
 
     private fun initialize() {
         client = Retrofit.Builder().baseUrl("https://jsonplaceholder.typicode.com/")
-            .addConverterFactory(JacksonConverterFactory.create(jacksonObjectMapper()))
+            .addConverterFactory(
+                JacksonConverterFactory.create(
+                    jacksonObjectMapper().configure(
+                        DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,
+                        false
+                    )
+                )
+            )
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build().create(Client::class.java)
     }

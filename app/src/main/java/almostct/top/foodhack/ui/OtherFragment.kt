@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 
 
-class OtherFragment private constructor() : Fragment() {
+class OtherFragment() : Fragment() {
     companion object {
         operator fun invoke() = OtherFragment()
     }

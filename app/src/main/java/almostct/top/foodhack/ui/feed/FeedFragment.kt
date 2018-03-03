@@ -17,7 +17,7 @@ import android.widget.TextView
 import android.widget.Toast
 import kotterknife.bindView
 
-class FeedFragment private constructor() : Fragment() {
+class FeedFragment() : Fragment() {
     companion object {
         operator fun invoke() = FeedFragment()
     }
