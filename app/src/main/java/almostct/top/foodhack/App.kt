@@ -21,7 +21,7 @@ class App: Application() {
     }
 
     private fun initialize() {
-        client = Retrofit.Builder().baseUrl("http://192.168.43.225:8080/")
+        client = Retrofit.Builder().baseUrl("http://192.168.43.207:8080/")
             .addConverterFactory(
                 JacksonConverterFactory.create(
                     jacksonObjectMapper().configure(
