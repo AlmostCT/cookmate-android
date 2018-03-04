@@ -66,10 +66,17 @@ object DummyData {
         image = "pancake_achievement.png"
     )
 
+    /*
     val firstRunAchievement = Achievement(
         name = "firstRun",
         description = "За первый выполненный рецепт!",
         image = "plus_one_achievement.png"
+    )*/
+
+    val firstLoveAchievement = Achievement(
+            name = "firstLove",
+            description = "За первую коробку, заказанную у нас!",
+            image = "first_love_achievement.png"
     )
 
     val acc1 = Account("nickname1", 100, null, listOf())

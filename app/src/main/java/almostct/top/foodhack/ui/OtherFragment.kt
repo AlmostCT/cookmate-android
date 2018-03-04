@@ -31,8 +31,7 @@ class OtherFragment() : Fragment() {
         profile_achievements.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         profile_achievements.adapter = AchievementsAdapter(
             listOf(
-                DummyData.firstRunAchievement,
-                DummyData.pancakeAchievement,
+                DummyData.firstLoveAchievement,
                 DummyData.pancakeAchievement
             )
         )
