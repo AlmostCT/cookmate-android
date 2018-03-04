@@ -24,7 +24,6 @@ import android.widget.TextView
 import android.widget.Toast
 import io.reactivex.functions.BiFunction
 import kotterknife.bindView
-import java.util.*
 
 class FeedFragment() : Fragment() {
     companion object {
@@ -140,14 +139,12 @@ class FeedFragment() : Fragment() {
     }
 }
 
-private val rand = Random()
-
 fun rollMock(position: String) = when (position.toIntOrNull()) {
-    0 -> R.drawable.mock_food_1
-    1 -> R.drawable.mock_food_2
-    2 -> R.drawable.mock_food_3
-    3 -> R.drawable.mock_food_4
-    4 -> R.drawable.mock_food_5
-    5 -> R.drawable.mock_food_6
+    0 -> R.drawable.p1
+    1 -> R.drawable.p2
+    2 -> R.drawable.p3
+    3 -> R.drawable.p4
+    4 -> R.drawable.p5
+    5 -> R.drawable.p6
     else -> R.drawable.mock_food_1
 }
