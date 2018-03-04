@@ -20,7 +20,7 @@ interface Client {
     @GET("/comments/top")
     fun getTopComments(@Query("target") target: String, @Query("step") stepId: Int = -1): Observable<List<Comment>>
 
-    @GET("/comments/top")
+    @GET("/comments/top ")
     fun getTopComments(@Query("target") target: String, @Query("qty") qty: Int, @Query("step") stepId: Int = -1): Observable<List<Comment>>
 
     @POST("/postComment")
