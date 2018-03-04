@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">CookMate</string>
+    <string name="title_home">Лента</string>
+    <string name="title_share">Поделиться</string>
+    <string name="title_profile">Профиль</string>
+    <string name="title_notifications">Оповещение</string>
+    <string name="feed_rotm">Рецепты месяца</string>
+    <string name="feed_news_str">Новости</string>
+    <string name="title_activity_recipe">RecipeActivity</string>
+
+    <string name="recipe_general_info_cooktime"><b>Время приготовления: </b></string>
+    <string name="recipe_general_info_weight"><b>Вес: </b></string>
+    <string name="recipe_energy_info_header"><b>Энергетическая ценнность</b></string>
+    <string name="recipe_energy_info_header_profile"><b>Энергетическая ценнность - недельная статистика</b></string>
+    <string name="achievements_header_profile"><b>Достижения</b></string>
+    <string name="recipe_energy_description_header"><b>Описание</b></string>
+    <string name="recipe_steps_description_header"><b>Шаги</b></string>
+    <string name="recipe_energy_info_calories"><b>Калории</b></string>
+    <string name="recipe_energy_info_b"><b>Белки</b></string>
+    <string name="recipe_energy_info_j"><b>Жиры</b></string>
+    <string name="recipe_energy_info_u"><b>Углеводы</b></string>
+    <string name="start">Начать!</string>
+
+    <string name="string_comments">Обсудить</string>
+
+    <string name="title_activity_cooking">CookingActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="new_comment_dialog_title">Новый комментарий</string>
+    <string name="you_ve_did_it">Вы смогли!</string>
+    <string name="share_with_friends">Поделиться</string>
+    <string name="close">Закрыть</string>
+    <string name="all_comments">Все комментарии</string>
+    <string name="mock_rating">Рейтинг: 3,1</string>
+</resources>
