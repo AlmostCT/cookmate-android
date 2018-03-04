@@ -8,41 +8,96 @@
     <!-- The primary full-screen view. This can be replaced with whatever view
          is needed to present your content, e.g. VideoView, SurfaceView,
          TextureView, etc. -->
-    <LinearLayout
+    <FrameLayout
         android:id="@+id/fullscreen_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <almostct.top.foodhack.ui.common.AutoResizeTextView
-            android:id="@+id/fullscreen_content_text"
+        <nl.dionsegijn.konfetti.KonfettiView
+            android:id="@+id/viewKonfetti"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:keepScreenOn="true"
-            android:text="loading..."
-            android:textColor="#696969"
-            android:textSize="50sp"
-            android:textStyle="bold" />
+            android:layout_height="match_parent" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:textStyle="italic"
-            android:gravity="center"
-            android:id="@+id/step_countdown" />
-
-        <ProgressBar
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:max="100"
-            android:progress="20"
+        <LinearLayout
+            android:id="@+id/cooking_regular"
+            android:orientation="vertical"
             android:visibility="visible"
-            android:id="@+id/step_progress" />
-    </LinearLayout>
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <almostct.top.foodhack.ui.common.AutoResizeTextView
+                android:id="@+id/fullscreen_content_text"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:keepScreenOn="true"
+                android:text="loading..."
+                android:textColor="#696969"
+                android:textSize="50sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textStyle="italic"
+                android:gravity="center"
+                android:id="@+id/step_countdown" />
+
+            <ProgressBar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:max="100"
+                android:progress="20"
+                android:visibility="visible"
+                android:id="@+id/step_progress" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/cooking_congratulations"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:src="@drawable/plus_one_achievement"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <TextView
+                style="@style/FeedTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/you_ve_did_it" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/cooking_share"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:background="#FFFFFF"
+                    android:layout_height="wrap_content"
+                    android:text="@string/share_with_friends" />
+
+                <Button
+                    android:id="@+id/cooking_close"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:background="#FFFFFF"
+                    android:layout_height="wrap_content"
+                    android:text="@string/close" />
+            </LinearLayout>
+        </LinearLayout>
+    </FrameLayout>
 
     <!-- This FrameLayout insets its children based on system windows using
          android:fitsSystemWindows. -->

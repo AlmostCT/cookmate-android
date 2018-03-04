@@ -7,6 +7,7 @@ import almostct.top.foodhack.ui.comments.CommentsActivity
 import almostct.top.foodhack.ui.common.InjectableActivity
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
@@ -22,7 +23,10 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import com.marcinmoskala.activitystarter.argExtra
 import icepick.State
+import kotlinx.android.synthetic.main.activity_cooking.*
 import kotterknife.bindView
+import nl.dionsegijn.konfetti.models.Shape
+import nl.dionsegijn.konfetti.models.Size
 import java.lang.Math.abs
 
 
@@ -42,6 +46,12 @@ class CookingActivity : InjectableActivity() {
     private val countdownText by bindView<TextView>(R.id.step_countdown)
 
     private val commentsButton by bindView<Button>(R.id.dummy_button)
+
+    private val cookingRegular by bindView<View>(R.id.cooking_regular)
+    private val cookingCongrats by bindView<View>(R.id.cooking_congratulations)
+
+    private val shareButton by bindView<View>(R.id.cooking_share)
+    private val closeButton by bindView<View>(R.id.cooking_close)
 
     private val mHidePart2Runnable = Runnable {
         // Delayed removal of status and navigation bar
@@ -101,7 +111,7 @@ class CookingActivity : InjectableActivity() {
                 velocityX: Float, velocityY: Float
             ): Boolean {
                 Log.d(DEBUG_TAG, "onFling: x1=${event1.x} x2=${event2.x} velocity=$velocityX")
-                if (abs(event1.x - event2.x) < 150) return false
+                if (abs(event1.x - event2.x) < 150 || transitionDisabled) return false
                 if (event1.x < event2.x) previousStep() else nextStep()
                 return true
             }
@@ -113,6 +123,7 @@ class CookingActivity : InjectableActivity() {
         // while interacting with the UI.
         findViewById(R.id.fullscreen_content_controls).setOnTouchListener(mDelayHideTouchListener)
         commentsButton.setOnClickListener { startActivity(Intent(this, CommentsActivity::class.java)) }
+        closeButton.setOnClickListener { finish() }
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
@@ -124,7 +135,7 @@ class CookingActivity : InjectableActivity() {
         delayedHide(100)
 
         if (savedInstanceState == null) currentStepTimeLeft = currentRecipe.steps[currentStep].time
-        updateStep()
+        if (transitionDisabled) recipeFinished() else updateStep()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -208,6 +219,10 @@ class CookingActivity : InjectableActivity() {
 
     @JvmField
     @State
+    var transitionDisabled: Boolean = false
+
+    @JvmField
+    @State
     var currentStepTimeLeft: Long = 0
 
     private lateinit var countDown: CountDownTimer
@@ -217,6 +232,8 @@ class CookingActivity : InjectableActivity() {
     private fun previousStep() = incState(-1)
 
     private fun incState(delta: Int) {
+        if (currentStep + delta == currentRecipe.steps.size) return recipeFinished()
+
         currentStep = (currentStep + delta).coerceIn(0, currentRecipe.steps.size - 1)
         currentStepTimeLeft = currentRecipe.steps[currentStep].time
         if (currentStepTimeLeft == 0L) { // no time on this step
@@ -252,6 +269,24 @@ class CookingActivity : InjectableActivity() {
             }
         }
         countDown.start()
+    }
+
+    private fun recipeFinished() {
+        transitionDisabled = true
+        cookingRegular.visibility = View.GONE
+        commentsButton.visibility = View.GONE
+        cookingCongrats.visibility = View.VISIBLE
+
+        viewKonfetti.build()
+            .addColors(Color.YELLOW, Color.GREEN, Color.MAGENTA)
+            .setDirection(0.0, 359.0)
+            .setSpeed(1f, 5f)
+            .setFadeOutEnabled(true)
+            .setTimeToLive(2000L)
+            .addShapes(Shape.RECT, Shape.CIRCLE)
+            .addSizes(Size(12))
+            .setPosition(-50f, viewKonfetti.width + 50f, -50f, -50f)
+            .stream(300, 3000L)
     }
 
     override fun onBackPressed() {
