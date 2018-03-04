@@ -40,5 +40,21 @@
             android:layout_height="wrap_content">
 
         </android.support.v7.widget.RecyclerView>
+
+        <TextView
+            android:paddingStart="@dimen/very_big_padding"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/feed_header3"
+            style="@style/FeedTitle"
+            android:text="@string/feed_header3" />
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_marginStart="@dimen/medium_padding"
+            android:id="@+id/feed_featured"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </android.support.v7.widget.RecyclerView>
     </LinearLayout>
 </ScrollView>

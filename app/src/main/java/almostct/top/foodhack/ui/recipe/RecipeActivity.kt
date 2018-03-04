@@ -90,7 +90,8 @@ class RecipeActivity() : InjectableActivity() {
         jText.text = receipt.fats
         uText.text = receipt.carbohydrates
         descriptionView.text = receipt.tools
-        recipe_steps.text = receipt.steps.joinToString(separator = "\n") { it.shortDescription }
+        recipe_steps.text = receipt.steps.mapIndexed { index, step -> "${index + 1}. ${step.shortDescription}" }
+            .joinToString(separator = "\n\n")
         val s1 = comments.getOrNull(0)?.let { Html.fromHtml("<b>${it.account.handle}</b> ${it.text}") } ?: ""
         val s2 = comments.getOrNull(1)?.let { Html.fromHtml("<b>${it.account.handle}</b> ${it.text}") } ?: ""
         recipe_comments.text = TextUtils.concat(s1, "\n", s2)

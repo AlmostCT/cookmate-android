@@ -23,6 +23,7 @@ import android.widget.RatingBar
 import android.widget.TextView
 import android.widget.Toast
 import kotterknife.bindView
+import java.util.*
 
 class FeedFragment() : Fragment() {
     companion object {
@@ -46,25 +47,28 @@ class FeedFragment() : Fragment() {
 
     val recipesView by bindView<RecyclerView>(R.id.feed_recipes)
     val newsView by bindView<RecyclerView>(R.id.feed_news)
+    val featuredViews by bindView<RecyclerView>(R.id.feed_featured)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         fetchUI()
     }
 
     private fun fetchUI() {
-        cli.getUsersRecipes(3, 0).defaultSub(this@FeedFragment::updateUI)
+        cli.getUsersRecipes(3, 3).defaultSub(this@FeedFragment::updateUI)
     }
 
     private fun updateUI(data: List<Recipe>) {
         recipesView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         newsView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        recipesView.adapter = RotmAdapter(data)
+        recipesView.adapter = RotmAdapter(data.subList(0, 3))
         newsView.adapter = NewsAdapter(
             listOf(
                 FeedNewsElement("Рецепт месяца", "Голосуйте за лучший рецепт месяца!"),
                 FeedNewsElement("Скидки", "Скидки до 30% в Пртии Еды")
             )
         )
+        featuredViews.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        featuredViews.adapter = RotmAdapter(data.subList(3, 6))
     }
 
     inner class RotmAdapter(private val horizontalList: List<FeedRecipeElement>) :
@@ -131,9 +135,14 @@ class FeedFragment() : Fragment() {
     }
 }
 
-fun rollMock(position: Int) = when (position % 3) {
+private val rand = Random()
+
+fun rollMock(position: Int) = when (rand.nextInt(6)) {
     0 -> R.drawable.mock_food_1
     1 -> R.drawable.mock_food_2
     2 -> R.drawable.mock_food_3
+    3 -> R.drawable.mock_food_4
+    4 -> R.drawable.mock_food_5
+    5 -> R.drawable.mock_food_6
     else -> throw AssertionError("Math fucked")
 }

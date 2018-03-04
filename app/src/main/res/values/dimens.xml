@@ -10,6 +10,7 @@
 
     <dimen name="feed_recipe_width">140dp</dimen>
     <dimen name="feed_recipe_height">180dp</dimen>
+    <dimen name="feed_news_width">220dp</dimen>
     <dimen name="recipe_img_height">180dp</dimen>
 
     <dimen name="fab_margin">16dp</dimen>

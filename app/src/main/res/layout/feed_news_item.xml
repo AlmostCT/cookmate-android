@@ -20,7 +20,7 @@
 
             <ImageView
                 android:id="@+id/feed_item_image"
-                android:layout_width="@dimen/feed_recipe_height"
+                android:layout_width="@dimen/feed_news_width"
                 android:layout_height="@dimen/feed_recipe_width"
                 android:tint="#6F000000"
                 android:scaleType="centerCrop" />
