@@ -14,9 +14,11 @@
             android:id="@+id/feed_header1"
             style="@style/FeedTitle"
             android:paddingTop="@dimen/big_padding"
+            android:paddingStart="@dimen/very_big_padding"
             android:text="@string/feed_rotm" />
 
         <android.support.v7.widget.RecyclerView
+            android:layout_marginStart="@dimen/medium_padding"
             android:id="@+id/feed_recipes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -24,6 +26,7 @@
         </android.support.v7.widget.RecyclerView>
 
         <TextView
+            android:paddingStart="@dimen/very_big_padding"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/feed_header2"
@@ -31,6 +34,7 @@
             android:text="@string/feed_news_str" />
 
         <android.support.v7.widget.RecyclerView
+            android:layout_marginStart="@dimen/medium_padding"
             android:id="@+id/feed_news"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">

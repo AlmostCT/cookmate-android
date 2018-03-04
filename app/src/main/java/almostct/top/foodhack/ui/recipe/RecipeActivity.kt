@@ -4,7 +4,7 @@ import activitystarter.Arg
 import almostct.top.foodhack.R
 import almostct.top.foodhack.model.DummyData
 import almostct.top.foodhack.ui.common.InjectableActivity
-import almostct.top.foodhack.ui.cooking.CookingActivityStarter
+import almostct.top.foodhack.ui.cooking.CookingActivity2Starter
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
 import android.support.v7.widget.Toolbar
@@ -34,16 +34,19 @@ class RecipeActivity() : InjectableActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_recipe)
         val toolbar = findViewById(R.id.toolbar) as Toolbar
-        toolbar.title = recipeName
         setSupportActionBar(toolbar)
 
         val fab = findViewById(R.id.fab) as FloatingActionButton
         fab.setOnClickListener { view ->
-            CookingActivityStarter.start(this, DummyData.pancake)
+            CookingActivity2Starter.start(this, DummyData.pancake)
         }
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+//        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
         updateUI()
+    }
+
+    override fun getActivityTitle(): String {
+        return recipeName
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

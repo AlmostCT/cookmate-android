@@ -32,6 +32,16 @@
                 android:id="@+id/feed_item_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
+
+            <RatingBar
+                android:layout_margin="@dimen/medium_padding"
+                android:layout_width="wrap_content"
+                style="?android:attr/ratingBarStyleSmall"
+                android:layout_height="@dimen/big_padding"
+                android:numStars="5"
+                android:theme="@style/RatingBar"
+                android:rating="3"
+                android:layout_gravity="bottom|start" />
         </FrameLayout>
 
 

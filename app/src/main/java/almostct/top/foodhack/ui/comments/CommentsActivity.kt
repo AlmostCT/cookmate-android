@@ -3,10 +3,10 @@ package almostct.top.foodhack.ui.comments
 import almostct.top.foodhack.R
 import almostct.top.foodhack.model.Comment
 import almostct.top.foodhack.model.DummyData
+import almostct.top.foodhack.ui.common.InjectableActivity
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
 import android.support.v7.app.AlertDialog
-import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.CardView
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -22,7 +22,7 @@ import android.widget.Toast
 import kotterknife.bindView
 
 
-class CommentsActivity : AppCompatActivity() {
+class CommentsActivity : InjectableActivity() {
 
     val commentsView by bindView<RecyclerView>(R.id.comments_recycler)
 
@@ -39,6 +39,10 @@ class CommentsActivity : AppCompatActivity() {
 
         commentsView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         commentsView.adapter = CommentsAdapter(DummyData.comments)
+    }
+
+    override fun getActivityTitle(): String {
+        return getString(R.string.title_activity_comments)
     }
 
     private fun newCommentBuilder() {

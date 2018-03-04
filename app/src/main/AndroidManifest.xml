@@ -38,7 +38,12 @@
         <activity
             android:name=".ui.comments.CommentsActivity"
             android:label="@string/title_activity_comments"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ui.cooking.CookingActivity2"
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
     </application>
 
 </manifest>

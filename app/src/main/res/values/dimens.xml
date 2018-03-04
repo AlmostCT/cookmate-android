@@ -6,6 +6,7 @@
     <dimen name="small_padding">4dp</dimen>
     <dimen name="medium_padding">8dp</dimen>
     <dimen name="big_padding">16dp</dimen>
+    <dimen name="very_big_padding">24dp</dimen>
 
     <dimen name="feed_recipe_width">140dp</dimen>
     <dimen name="feed_recipe_height">180dp</dimen>
