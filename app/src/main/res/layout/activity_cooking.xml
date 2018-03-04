@@ -77,7 +77,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="@string/you_ve_did_it" />
+                android:text="@string/you_did_it" />
 
             <LinearLayout
                 android:layout_width="match_parent"

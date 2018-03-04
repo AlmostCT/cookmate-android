@@ -29,7 +29,7 @@
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="new_comment_dialog_title">New comment</string>
-    <string name="you_ve_did_it">You\'ve did it!</string>
+    <string name="you_did_it">You did it!</string>
     <string name="share_with_friends">Share with friends</string>
     <string name="close">Close</string>
     <string name="all_comments">All comments</string>

@@ -29,7 +29,7 @@
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="new_comment_dialog_title">Новый комментарий</string>
-    <string name="you_ve_did_it">Вы смогли!</string>
+    <string name="you_did_it">Вы смогли!</string>
     <string name="share_with_friends">Поделиться</string>
     <string name="close">Закрыть</string>
     <string name="all_comments">Все комментарии</string>
