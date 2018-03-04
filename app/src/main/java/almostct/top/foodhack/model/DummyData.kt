@@ -1,3 +1,5 @@
+@file:Suppress("MemberVisibilityCanBePrivate")
+
 package almostct.top.foodhack.model
 
 object DummyData {
@@ -8,7 +10,7 @@ object DummyData {
     val sugar = Product("Сахар", "2 ст. ложки")
     val salt = Product("Соль", "1/2 ч. ложки")
 
-    val step1 = ReceiptStep(
+    val step1 = RecipeStep(
         1,
         "Взбейте яйца",
         "Взбейте яйца с сахаром, постепенно введите муку и соль.",
@@ -16,7 +18,7 @@ object DummyData {
         listOf(eggs, sugar, flour, salt)
     )
 
-    val step2 = ReceiptStep(
+    val step2 = RecipeStep(
         stepId = 2,
         shortDescription = "Влейте молоко",
         longDescription = "Влейте молоко и аккуратно размешайте до однородной массы.",
@@ -24,7 +26,7 @@ object DummyData {
         products = listOf(milk)
     )
 
-    val step3 = ReceiptStep(
+    val step3 = RecipeStep(
         stepId = 3,
         shortDescription = "Оставьте на 20 минут",
         longDescription = "Оставьте на 20 минут.",
@@ -32,7 +34,7 @@ object DummyData {
         products = listOf()
     )
 
-    val step4 = ReceiptStep(
+    val step4 = RecipeStep(
         stepId = 4,
         shortDescription = "Добавьте растительное масло",
         longDescription = "Добавьте в тесто растительное масло и жарьте блины на сильно разогретой сковороде.Добавьте в тесто растительное масло и жарьте блины на сильно разогретой сковороде.Добавьте в тесто растительное масло и жарьте блины на сильно разогретой сковороде.Добавьте в тесто растительное масло и жарьте блины на сильно разогретой сковороде.Добавьте в тесто растительное масло и жарьте блины на сильно разогретой сковороде.Добавьте в тесто растительное масло и жарьте блины на сильно разогретой сковороде.Добавьте в тесто растительное масло и жарьте блины на сильно разогретой сковороде.Добавьте в тесто растительное масло и жарьте блины на сильно разогретой сковороде.Добавьте в тесто растительное масло и жарьте блины на сильно разогретой сковороде.Добавьте в тесто растительное масло и жарьте блины на сильно разогретой сковороде.",
@@ -40,7 +42,8 @@ object DummyData {
         products = listOf(butter)
     )
 
-    val pancake = Receipt(
+    val pancake = Recipe(
+        timeCreation = 1520121600000,
         name = "Pancake",
         rating = 5,
         tools = "Миска, вилка, венчик и сковорода.",
@@ -49,25 +52,32 @@ object DummyData {
         fats = "25.7 г",
         carbohydrates = "95.3 г",
         calories = "709 ккал",
-        totalTime = 40,
+        totalTime = "40 минут",
         picture = null,
+        ingredients = listOf(),
         steps = listOf(step1, step2, step3, step4)
     )
 
-    val acc1 = Account("nickname1", 100, null, null)
-    val acc2 = Account("nickname2", 10, null, null)
+
+    val pancakeAchievement = Achievement(
+            name = "pancakeAchievement",
+            description = "За лучшие блинчики в твоей жизни!",
+            image = "pancakeAchievement.svg"
+    )
+
+    val acc1 = Account("nickname1", 100, null, listOf())
+    val acc2 = Account("nickname2", 10, null, listOf(pancakeAchievement))
 
     val comments: List<Comment> = listOf(
-        Comment(acc1, "a1", "wow", 1000L, 10, 0, null),
-        Comment(acc2, "a2", "Adorable", 1020L, 10, 0, null),
+        Comment(acc1, "a1", "wow", 1000L, 10, 0),
+        Comment(acc2, "a2", "Adorable", 1020L, 10, 0),
         Comment(
             acc2,
             "a1",
             "Добавьте в тесто растительное масло и жарьте блины на сильно разогретой сковороде.Добавьте в тесто растительное масло и жарьте блины на сильно разогретой сковороде.Добавьте в тесто растительное масло и жарьте блины на сильно разогретой сковороде.Добавьте в тесто растительное масло и жарьте блины на сильно разогретой сковороде.Добавьте в тесто растительное масло и жарьте блины на сильно разогретой сковороде.Добавьте в тесто растительное масло и жарьте блины на сильно разогретой сковороде.Добавьте в тесто растительное масло и жарьте блины на сильно разогретой сковороде.Добавьте в тесто растительное масло и жарьте блины на сильно разогретой сковороде.Добавьте в тесто растительное масло и жарьте блины на сильно разогретой сковороде.Добавьте в тесто растительное масло и жарьте блины на сильно разогретой сковороде",
             1001L,
             10,
-            100,
-            null
+            100
         )
     )
 }
