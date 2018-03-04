@@ -5,4 +5,7 @@
     <color name="colorAccent">#303F9F</color>
 
     <color name="black_overlay">#66000000</color>
+
+    <color name="comment_green">#00d500</color>
+    <color name="comment_red">#d50000</color>
 </resources>

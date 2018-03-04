@@ -12,4 +12,6 @@
     <dimen name="recipe_img_height">180dp</dimen>
 
     <dimen name="fab_margin">16dp</dimen>
+
+    <dimen name="avatar_side">36dp</dimen>
 </resources>

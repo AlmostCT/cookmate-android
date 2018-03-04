@@ -21,4 +21,6 @@
     <string name="title_activity_cooking">CookingActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="title_activity_comments">Comments</string>
+    <string name="new_comment_dialog_title">New comment</string>
 </resources>

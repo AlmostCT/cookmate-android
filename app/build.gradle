@@ -53,7 +53,7 @@ androidExtensions {
 repositories {
     mavenCentral()
     maven { url 'https://jitpack.io' }
-    maven {url "https://clojars.org/repo/"}
+    maven { url "https://clojars.org/repo/" }
 }
 
 dependencies {

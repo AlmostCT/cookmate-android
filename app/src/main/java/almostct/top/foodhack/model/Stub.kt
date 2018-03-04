@@ -29,7 +29,8 @@ data class ReceiptStep(
     val shortDescription: String,
     val longDescription: String,
     val time: Long, // seconds
-    val products: List<Product>
+    val products: List<Product>,
+    val id: String? = null
 ) : Parcelable
 
 @Parcelize
@@ -38,3 +39,21 @@ data class Product(
     val amount: String,
     val id: String? = null
 ) : Parcelable
+
+data class Comment(
+    val account: Account,
+    val target: String,
+    val text: String,
+    val date: Long,
+    val likes: Int,
+    val dislikes: Int,
+    val commentId: String? = null
+)
+
+data class Account(
+    val handle: String,
+    val rating: Int,
+    val avatar: String?,
+//    @DBRef val achievements: List<Achievement>
+    val id: String? = null
+)

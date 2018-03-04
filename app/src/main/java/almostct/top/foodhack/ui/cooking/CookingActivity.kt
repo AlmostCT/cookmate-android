@@ -3,8 +3,10 @@ package almostct.top.foodhack.ui.cooking
 import activitystarter.Arg
 import almostct.top.foodhack.R
 import almostct.top.foodhack.model.Receipt
+import almostct.top.foodhack.ui.comments.CommentsActivity
 import almostct.top.foodhack.ui.common.InjectableActivity
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
@@ -15,6 +17,7 @@ import android.view.GestureDetector
 import android.view.MenuItem
 import android.view.MotionEvent
 import android.view.View
+import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
 import com.marcinmoskala.activitystarter.argExtra
@@ -37,6 +40,8 @@ class CookingActivity : InjectableActivity() {
     private val contentText by bindView<TextView>(R.id.fullscreen_content_text)
     private val progress by bindView<ProgressBar>(R.id.step_progress)
     private val countdownText by bindView<TextView>(R.id.step_countdown)
+
+    private val commentsButton by bindView<Button>(R.id.dummy_button)
 
     private val mHidePart2Runnable = Runnable {
         // Delayed removal of status and navigation bar
@@ -79,6 +84,7 @@ class CookingActivity : InjectableActivity() {
 
         setContentView(R.layout.activity_cooking)
         val actionBar = supportActionBar
+        actionBar?.title = currentRecipe.name
 
         mVisible = true
         mControlsView = findViewById(R.id.fullscreen_content_controls)
@@ -105,7 +111,8 @@ class CookingActivity : InjectableActivity() {
         // Upon interacting with UI controls, delay any scheduled hide()
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
-        findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener)
+        findViewById(R.id.fullscreen_content_controls).setOnTouchListener(mDelayHideTouchListener)
+        commentsButton.setOnClickListener { startActivity(Intent(this, CommentsActivity::class.java)) }
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
