@@ -22,7 +22,8 @@ data class Recipe(
         val totalTime: String,
         val picture: String?,
         val ingredients: List<Product>,
-        val steps: List<RecipeStep>
+        val steps: List<RecipeStep>,
+        val recipeId: String
 ) : Parcelable
 
 @Parcelize

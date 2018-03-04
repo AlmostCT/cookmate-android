@@ -30,10 +30,14 @@
                 android:paddingStart="@dimen/big_padding"
                 android:paddingTop="@dimen/medium_padding"
                 android:id="@+id/feed_item_text"
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/feed_recipe_width"
+                android:ellipsize="end"
+                android:scrollHorizontally="false"
+                android:maxLines="2"
                 android:layout_height="wrap_content" />
 
             <RatingBar
+                android:id="@+id/feed_recipe_rating"
                 android:layout_margin="@dimen/medium_padding"
                 android:layout_width="wrap_content"
                 style="?android:attr/ratingBarStyleSmall"
