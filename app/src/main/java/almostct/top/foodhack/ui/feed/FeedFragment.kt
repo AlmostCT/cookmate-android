@@ -140,11 +140,11 @@ class FeedFragment() : Fragment() {
 }
 
 fun rollMock(position: String) = when (position.toIntOrNull()) {
-    0 -> R.drawable.p1
-    1 -> R.drawable.p2
-    2 -> R.drawable.p3
-    3 -> R.drawable.p4
-    4 -> R.drawable.p5
-    5 -> R.drawable.p6
+    1 -> R.drawable.p1
+    2 -> R.drawable.p2
+    3 -> R.drawable.p3
+    4 -> R.drawable.p4
+    5 -> R.drawable.p5
+    6 -> R.drawable.p6
     else -> R.drawable.mock_food_1
 }

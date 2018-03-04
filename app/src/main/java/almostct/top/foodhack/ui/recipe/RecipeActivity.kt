@@ -7,6 +7,7 @@ import almostct.top.foodhack.model.Recipe
 import almostct.top.foodhack.ui.comments.CommentsActivityStarter
 import almostct.top.foodhack.ui.common.InjectableActivity
 import almostct.top.foodhack.ui.cooking.CookingActivity2Starter
+import almostct.top.foodhack.ui.feed.rollMock
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
 import android.support.v7.widget.Toolbar
@@ -48,6 +49,7 @@ class RecipeActivity() : InjectableActivity() {
 //        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
         fetchUI(recipe.recipeId)
+        recipe_image.setImageResource(rollMock(recipe.picture ?: ""))
         recipe_open_comments.setOnClickListener {
             CommentsActivityStarter.start(this, recipe.recipeId, -1)
         }
