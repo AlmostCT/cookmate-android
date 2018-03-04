@@ -1,17 +1,24 @@
 package almostct.top.foodhack.ui.cooking
 
 import activitystarter.Arg
+import almostct.top.foodhack.App
 import almostct.top.foodhack.R
+import almostct.top.foodhack.api.Client
+import almostct.top.foodhack.api.RecognitionResponse
 import almostct.top.foodhack.model.Receipt
 import almostct.top.foodhack.ui.comments.CommentsActivity
 import almostct.top.foodhack.ui.common.InjectableActivity
+import android.Manifest.permission.RECORD_AUDIO
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.content.pm.PackageManager.PERMISSION_GRANTED
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
 import android.support.v4.app.NavUtils
+import android.support.v4.content.ContextCompat
 import android.support.v4.view.GestureDetectorCompat
 import android.util.Log
 import android.view.GestureDetector
@@ -21,12 +28,17 @@ import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
+import android.widget.Toast
 import com.marcinmoskala.activitystarter.argExtra
 import icepick.State
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_cooking.*
 import kotterknife.bindView
 import nl.dionsegijn.konfetti.models.Shape
 import nl.dionsegijn.konfetti.models.Size
+import ru.yandex.speechkit.*
+import ru.yandex.speechkit.gui.callback.DefaultRecognizerListener
 import java.lang.Math.abs
 
 
@@ -38,6 +50,8 @@ class CookingActivity : InjectableActivity() {
 
     @get:Arg
     var currentRecipe: Receipt by argExtra()
+
+    private lateinit var cli: Client
 
     private val mHideHandler = Handler()
     private lateinit var mContentView: View
@@ -96,6 +110,8 @@ class CookingActivity : InjectableActivity() {
         val actionBar = supportActionBar
         actionBar?.title = currentRecipe.name
 
+        cli = (application as App).client
+
         mVisible = true
         mControlsView = findViewById(R.id.fullscreen_content_controls)
         mContentView = findViewById(R.id.fullscreen_content)
@@ -111,6 +127,28 @@ class CookingActivity : InjectableActivity() {
                 velocityX: Float, velocityY: Float
             ): Boolean {
                 Log.d(DEBUG_TAG, "onFling: x1=${event1.x} x2=${event2.x} velocity=$velocityX")
+                if (event1.y - event2.y > 150) {
+                    Log.d(DEBUG_TAG, "Swipe up!")
+                    if (ContextCompat.checkSelfPermission(this@CookingActivity, RECORD_AUDIO) != PERMISSION_GRANTED) {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                            requestPermissions(arrayOf(RECORD_AUDIO), 42)
+                        }
+                    } else {
+                        // Reset the current recognizer.
+                        resetRecognizer()
+                        // To create a new recognizer, specify the language, the model - a scope of recognition to get the most appropriate results,
+                        // set the listener to handle the recognition events.
+                        recognizer = Recognizer.create(
+                            Recognizer.Language.RUSSIAN,
+                            Recognizer.Model.NOTES,
+                            RecognizerCallback()
+                        )
+                        // Don't forget to call start on the created object.
+                        Log.e(LOG_TAG, "Start from swipe")
+                        recognizer?.start()
+                    }
+                    return true
+                }
                 if (abs(event1.x - event2.x) < 150 || transitionDisabled) return false
                 if (event1.x < event2.x) previousStep() else nextStep()
                 return true
@@ -124,6 +162,15 @@ class CookingActivity : InjectableActivity() {
         findViewById(R.id.fullscreen_content_controls).setOnTouchListener(mDelayHideTouchListener)
         commentsButton.setOnClickListener { startActivity(Intent(this, CommentsActivity::class.java)) }
         closeButton.setOnClickListener { finish() }
+    }
+
+    private var recognizer: Recognizer? = null
+
+    private fun resetRecognizer() {
+        if (recognizer != null) {
+            recognizer?.cancel()
+            recognizer = null
+        }
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
@@ -253,7 +300,7 @@ class CookingActivity : InjectableActivity() {
     private fun updateStep() {
         contentText.text = currentRecipe.steps[currentStep].longDescription
         val totalTime = currentRecipe.steps[currentStep].time
-        progress.setProgress(percentage(currentStepTimeLeft, totalTime), false)
+        progress.progress = percentage(currentStepTimeLeft, totalTime)
         countdownText.text = formatSeconds(currentStepTimeLeft)
         countDown = object : CountDownTimer(currentStepTimeLeft * 1000, 1000) {
             override fun onFinish() {
@@ -264,7 +311,7 @@ class CookingActivity : InjectableActivity() {
             override fun onTick(millisUntilFinished: Long) {
                 Log.d(LOG_TAG, "on timer tick: $millisUntilFinished")
                 currentStepTimeLeft -= 1
-                progress.setProgress(percentage(currentStepTimeLeft, totalTime), false)
+                progress.progress = percentage(currentStepTimeLeft, totalTime)
                 countdownText.text = formatSeconds(currentStepTimeLeft)
             }
         }
@@ -293,4 +340,110 @@ class CookingActivity : InjectableActivity() {
         countDown.cancel()
         super.onBackPressed()
     }
+
+    private inner class RecognizerCallback : DefaultRecognizerListener() {
+
+        override fun onRecordingBegin(arg0: Recognizer?) {
+            Log.d(LOG_TAG, "recording begins")
+        }
+
+        override fun onRecognitionDone(arg0: Recognizer?, arg1: Recognition?) {
+            val s = arg1?.bestResultText?.trim()?.trimEnd('.').orEmpty()
+            Toast.makeText(this@CookingActivity, "Recognized: $s", Toast.LENGTH_SHORT).show()
+            cli.recognize("5a9b3e403cfe433ec0f5e775", currentStep + 1, s)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(responseHandler, { Log.e(LOG_TAG, "Succ", it) })
+            Log.d(LOG_TAG, s)
+        }
+
+        override fun onError(arg0: Recognizer?, arg1: Error?) {
+            Log.e(LOG_TAG, "Pizda : ${arg1?.code} ( ${arg1?.string} )", RuntimeException())
+        }
+    }
+
+    private var vocalizer: Vocalizer? = null
+
+    private fun resetVocalizer() {
+        if (vocalizer != null) {
+            vocalizer!!.cancel()
+            vocalizer = null
+        }
+    }
+
+    private val responseHandler: (RecognitionResponse) -> Unit = { (cmd) ->
+        Log.d(LOG_TAG, "Got: $cmd")
+        when (cmd) {
+            "Prev" -> previousStep()
+            "Next" -> nextStep()
+            else -> {
+                val s = if (cmd == "Time") getTimePhrase(currentStepTimeLeft) else cmd
+                resetVocalizer()
+                vocalizer = Vocalizer.createVocalizer(Vocalizer.Language.RUSSIAN, s, true, Vocalizer.Voice.ALYSS)
+                vocalizer!!.setListener(errorRespondingVocalizerListener)
+                vocalizer!!.start()
+            }
+        }
+    }
+
+    private val errorRespondingVocalizerListener = object : VocalizerListener {
+        override fun onSynthesisBegin(p0: Vocalizer?) {
+        }
+
+        override fun onPlayingBegin(p0: Vocalizer?) {
+        }
+
+        override fun onVocalizerError(p0: Vocalizer?, p1: Error?) {
+            Log.e(LOG_TAG, "Hui : ${p1?.code} ( ${p1?.string} )", RuntimeException())
+        }
+
+        override fun onSynthesisDone(p0: Vocalizer?, p1: Synthesis?) {
+        }
+
+        override fun onPlayingDone(p0: Vocalizer?) {
+        }
+    }
 }
+
+fun getTimePhrase(timeLeft: Long): String {
+    if (timeLeft == 0L) {
+        return "Переходи к следующему шагу как захочешь или скажи мне"
+    } else {
+        if (timeLeft < 10) {
+            return "Осталось меньше десяти секунд"
+        }
+        if (timeLeft < 60) {
+            return "Осталось меньше ${timeToText[((timeLeft + 9) / 10 * 10).toInt()]!!} секунд"
+        }
+        if (timeLeft < 3600) {
+            return "Осталось меньше ${timeToText[(((timeLeft + 59) / 60 + 4) / 5 * 5).toInt()]!!} минут"
+        }
+
+        if (timeLeft == 3600L) {
+            return "Осталось меньше одного часа"
+        }
+
+        if (timeLeft < 10800) {
+            return "Осталось меньше ${timeToText[(timeLeft / 3600).toInt()]!!} часов"
+        }
+        return "Осталось ещё очень много времени, пока можно и отдохнуть"
+    }
+}
+
+private val timeToText = mutableMapOf<Int, String>(
+    1 to "одного",
+    2 to "двух",
+    3 to "трех",
+    4 to "четырех",
+    5 to "пяти",
+    10 to "десяти",
+    15 to "пятнадцати",
+    20 to "двадцати",
+    25 to "двадцати пяти",
+    30 to "тридцати",
+    35 to "тридцати пяти",
+    40 to "сорока",
+    45 to "сорока пяти",
+    50 to "пятидесяти",
+    55 to "пятидесяти пяти"
+)
