@@ -8,139 +8,193 @@
     tools:context="almostct.top.foodhack.ui.recipe.RecipeActivity"
     tools:showIn="@layout/activity_recipe">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:scaleType="centerCrop"
-            android:layout_height="@dimen/recipe_img_height"
-            android:src="@drawable/mock_food_1"
-            android:layout_marginBottom="@dimen/medium_padding" />
-
-        <TextView
-            android:id="@+id/recipe_general_info"
-            android:padding="@dimen/medium_padding"
-            android:textSize="16sp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <include layout="@layout/separator" />
-
-        <TextView
-            android:padding="@dimen/medium_padding"
-            android:textSize="16sp"
-            android:text="@string/recipe_energy_info_header"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <!-- TABLE -->
-
-        <GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/that_grid"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:columnCount="4"
-            android:rowCount="2"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
-            <!-- HEADER -->
+            <ImageView
+                android:layout_width="match_parent"
+                android:scaleType="centerCrop"
+                android:layout_height="@dimen/recipe_img_height"
+                android:src="@drawable/mock_food_1"
+                android:layout_marginBottom="@dimen/medium_padding" />
+
+            <TextView
+                android:id="@+id/recipe_general_info"
+                android:padding="@dimen/medium_padding"
+                android:paddingStart="@dimen/very_big_padding"
+                android:textSize="16sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <include layout="@layout/separator" />
 
             <TextView
                 android:padding="@dimen/medium_padding"
                 android:textSize="16sp"
-                android:text="@string/recipe_energy_info_calories"
+                android:text="@string/recipe_energy_info_header"
+                android:layout_gravity="center"
                 android:gravity="center"
-                android:layout_gravity="fill"
-                android:layout_columnWeight="1"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
+
+            <!-- TABLE -->
+
+            <GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/that_grid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:columnCount="4"
+                android:rowCount="2"
+                android:orientation="horizontal">
+
+                <!-- HEADER -->
+
+                <TextView
+                    android:padding="@dimen/medium_padding"
+                    android:textSize="16sp"
+                    android:text="@string/recipe_energy_info_calories"
+                    android:gravity="center"
+                    android:layout_gravity="fill"
+                    android:layout_columnWeight="1"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:padding="@dimen/medium_padding"
+                    android:textSize="16sp"
+                    android:gravity="center"
+                    android:text="@string/recipe_energy_info_b"
+                    android:layout_gravity="fill"
+                    android:layout_columnWeight="1"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:padding="@dimen/medium_padding"
+                    android:textSize="16sp"
+                    android:gravity="center"
+                    android:text="@string/recipe_energy_info_j"
+                    android:layout_gravity="fill"
+                    android:layout_columnWeight="1"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:padding="@dimen/medium_padding"
+                    android:textSize="16sp"
+                    android:gravity="center"
+                    android:text="@string/recipe_energy_info_u"
+                    android:layout_gravity="fill"
+                    android:layout_columnWeight="1"
+                    android:layout_height="wrap_content" />
+
+                <!-- INFO -->
+
+                <TextView
+                    android:padding="@dimen/medium_padding"
+                    android:textSize="16sp"
+                    android:gravity="center"
+                    android:id="@+id/recipe_energy_info_calories"
+                    android:layout_gravity="fill"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:padding="@dimen/medium_padding"
+                    android:textSize="16sp"
+                    android:gravity="center"
+                    android:id="@+id/recipe_energy_info_b"
+                    android:layout_gravity="fill"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:padding="@dimen/medium_padding"
+                    android:textSize="16sp"
+                    android:gravity="center"
+                    android:id="@+id/recipe_energy_info_j"
+                    android:layout_gravity="fill"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:padding="@dimen/medium_padding"
+                    android:textSize="16sp"
+                    android:gravity="center"
+                    android:id="@+id/recipe_energy_info_u"
+                    android:layout_gravity="fill"
+                    android:layout_height="wrap_content" />
+            </GridLayout>
+
+            <include layout="@layout/separator" />
 
             <TextView
                 android:padding="@dimen/medium_padding"
                 android:textSize="16sp"
+                android:text="@string/recipe_energy_description_header"
+                android:layout_gravity="center"
                 android:gravity="center"
-                android:text="@string/recipe_energy_info_b"
-                android:layout_gravity="fill"
-                android:layout_columnWeight="1"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/recipe_description"
+                android:padding="@dimen/medium_padding"
+                android:paddingStart="@dimen/very_big_padding"
+                android:textSize="14sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <include layout="@layout/separator" />
 
             <TextView
                 android:padding="@dimen/medium_padding"
                 android:textSize="16sp"
+                android:text="@string/recipe_steps_description_header"
+                android:layout_gravity="center"
                 android:gravity="center"
-                android:text="@string/recipe_energy_info_j"
-                android:layout_gravity="fill"
-                android:layout_columnWeight="1"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/recipe_steps"
+                android:padding="@dimen/medium_padding"
+                android:textSize="14sp"
+                android:paddingStart="@dimen/very_big_padding"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <include layout="@layout/separator" />
 
             <TextView
                 android:padding="@dimen/medium_padding"
                 android:textSize="16sp"
+                android:text="@string/recipe_comments_header"
+                android:layout_gravity="center"
                 android:gravity="center"
-                android:text="@string/recipe_energy_info_u"
-                android:layout_gravity="fill"
-                android:layout_columnWeight="1"
-                android:layout_height="wrap_content" />
-
-            <!-- INFO -->
-
-            <TextView
-                android:padding="@dimen/medium_padding"
-                android:textSize="16sp"
-                android:gravity="center"
-                android:id="@+id/recipe_energy_info_calories"
-                android:layout_gravity="fill"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
             <TextView
+                android:id="@+id/recipe_comments"
                 android:padding="@dimen/medium_padding"
-                android:textSize="16sp"
-                android:gravity="center"
-                android:id="@+id/recipe_energy_info_b"
-                android:layout_gravity="fill"
+                android:textSize="14sp"
+                android:paddingStart="@dimen/very_big_padding"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
             <TextView
+                android:id="@+id/recipe_open_comments"
                 android:padding="@dimen/medium_padding"
-                android:textSize="16sp"
-                android:gravity="center"
-                android:id="@+id/recipe_energy_info_j"
-                android:layout_gravity="fill"
+                android:textSize="14sp"
+                android:textColor="@color/colorPrimaryDark"
+                android:paddingStart="@dimen/very_big_padding"
+                android:text="@string/all_comments"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-            <TextView
-                android:padding="@dimen/medium_padding"
-                android:textSize="16sp"
-                android:gravity="center"
-                android:id="@+id/recipe_energy_info_u"
-                android:layout_gravity="fill"
-                android:layout_height="wrap_content" />
-        </GridLayout>
-
-        <include layout="@layout/separator" />
-
-        <TextView
-            android:padding="@dimen/medium_padding"
-            android:textSize="16sp"
-            android:text="@string/recipe_energy_description_header"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:id="@+id/recipe_description"
-            android:padding="@dimen/medium_padding"
-            android:textSize="14sp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-
-    </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 
 </android.support.constraint.ConstraintLayout>
