@@ -2,6 +2,7 @@ package almostct.top.foodhack.ui.comments
 
 import activitystarter.Arg
 import almostct.top.foodhack.R
+import almostct.top.foodhack.model.AddCommentRequest
 import almostct.top.foodhack.model.Comment
 import almostct.top.foodhack.ui.common.InjectableActivity
 import almostct.top.foodhack.ui.common.defaultSub
@@ -21,8 +22,11 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import com.marcinmoskala.activitystarter.argExtra
+import io.reactivex.Observable
 import kotterknife.bindView
 
+
+private val testAccountId = "5a9b7a113cfe433b705e1251"
 
 class CommentsActivity : InjectableActivity() {
 
@@ -45,15 +49,15 @@ class CommentsActivity : InjectableActivity() {
             newCommentBuilder()
         }
 
-        fetchUI()
+        fetchUI().defaultSub { updateUI(it) }
     }
 
     override fun getActivityTitle(): String {
         return getString(R.string.string_comments)
     }
 
-    fun fetchUI() {
-        getClient().getAllComments(target, stepId).defaultSub { updateUI(it) }
+    fun fetchUI(): Observable<List<Comment>> {
+        return getClient().getAllComments(target, stepId)
     }
 
     fun updateUI(comments: List<Comment>) {
@@ -74,11 +78,15 @@ class CommentsActivity : InjectableActivity() {
 // Set up the buttons
         builder.setPositiveButton("OK",
             { dialog, which ->
+                val text = input.text.toString()
                 Toast.makeText(
                     this,
-                    input.text.toString(),
+                    text,
                     Toast.LENGTH_SHORT
                 ).show()
+                getClient().postComment(AddCommentRequest(testAccountId, target, stepId, text))
+                    .concatMap { fetchUI() }
+                    .defaultSub { updateUI(it) }
             })
         builder.setNegativeButton("Cancel",
             { dialog, which -> dialog.cancel() })

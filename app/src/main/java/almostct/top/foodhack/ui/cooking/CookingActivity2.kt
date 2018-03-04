@@ -193,6 +193,9 @@ class CookingActivity2 : InjectableActivity() {
             override fun onFinish() {
                 Log.d(LOG_TAG, "Finish")
                 currentStepTimeLeft = 0
+                progress.progress = percentage(currentStepTimeLeft, totalTime)
+                countdownText.text = formatSeconds(currentStepTimeLeft)
+                invokeVocalizer("Вcё готово, давай дальше!")
             }
 
             override fun onTick(millisUntilFinished: Long) {
@@ -265,12 +268,16 @@ class CookingActivity2 : InjectableActivity() {
             "Next" -> nextStep()
             else -> {
                 val s = if (cmd == "Time") getTimePhrase2(currentStepTimeLeft) else cmd
-                resetVocalizer()
-                vocalizer = Vocalizer.createVocalizer(Vocalizer.Language.RUSSIAN, s, true, Vocalizer.Voice.ALYSS)
-                vocalizer!!.setListener(errorRespondingVocalizerListener)
-                vocalizer!!.start()
+                invokeVocalizer(s)
             }
         }
+    }
+
+    private fun invokeVocalizer(s: String) {
+        resetVocalizer()
+        vocalizer = Vocalizer.createVocalizer(Vocalizer.Language.RUSSIAN, s, true, Vocalizer.Voice.ALYSS)
+        vocalizer!!.setListener(errorRespondingVocalizerListener)
+        vocalizer!!.start()
     }
 
     private val errorRespondingVocalizerListener = object : VocalizerListener {

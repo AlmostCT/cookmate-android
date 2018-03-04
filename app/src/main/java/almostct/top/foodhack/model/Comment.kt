@@ -15,3 +15,10 @@ data class Comment(
         val likes: Int,
         val dislikes: Int
 ) : Parcelable
+
+data class AddCommentRequest(
+    val accountId: String,
+    val recipeId: String,
+    val step: Int,
+    val text: String
+)

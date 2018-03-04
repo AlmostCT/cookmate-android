@@ -22,6 +22,7 @@ import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
 import android.widget.Toast
+import io.reactivex.functions.BiFunction
 import kotterknife.bindView
 import java.util.*
 
@@ -54,13 +55,17 @@ class FeedFragment() : Fragment() {
     }
 
     private fun fetchUI() {
-        cli.getUsersRecipes(3, 3).defaultSub(this@FeedFragment::updateUI)
+        cli.getUsersRecipes(0, 3)
+            .zipWith(
+                cli.getAllRecipes(3),
+                BiFunction<List<Recipe>, List<Recipe>, Pair<List<Recipe>, List<Recipe>>> { t1, t2 -> t1 to t2 })
+            .defaultSub { (a, b) -> updateUI(a, b) }
     }
 
-    private fun updateUI(data: List<Recipe>) {
+    private fun updateUI(data1: List<Recipe>, data2: List<Recipe>) {
         recipesView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         newsView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        recipesView.adapter = RotmAdapter(data.subList(0, 3))
+        recipesView.adapter = RotmAdapter(data1)
         newsView.adapter = NewsAdapter(
             listOf(
                 FeedNewsElement("Рецепт месяца", "Голосуйте за лучший рецепт месяца!"),
@@ -68,7 +73,7 @@ class FeedFragment() : Fragment() {
             )
         )
         featuredViews.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        featuredViews.adapter = RotmAdapter(data.subList(3, 6))
+        featuredViews.adapter = RotmAdapter(data2)
     }
 
     inner class RotmAdapter(private val horizontalList: List<FeedRecipeElement>) :
@@ -89,7 +94,7 @@ class FeedFragment() : Fragment() {
 
         override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
             holder.textView.text = horizontalList[position].name
-            val img = rollMock(position)
+            val img = rollMock(horizontalList[position].picture ?: "")
             holder.imageView.setImageResource(img)
             holder.ratingBar.rating = horizontalList[position].rating.toFloat()
             holder.cardView.setOnClickListener {
@@ -119,7 +124,7 @@ class FeedFragment() : Fragment() {
         override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
             holder.textView.text = horizontalList[position].title
             holder.bodyText.text = horizontalList[position].body
-            val img = rollMock(position)
+            val img = rollMock(position.toString())
             holder.imageView.setImageResource(img)
 
             holder.cardView.setOnClickListener {
@@ -137,12 +142,12 @@ class FeedFragment() : Fragment() {
 
 private val rand = Random()
 
-fun rollMock(position: Int) = when (rand.nextInt(6)) {
+fun rollMock(position: String) = when (position.toIntOrNull()) {
     0 -> R.drawable.mock_food_1
     1 -> R.drawable.mock_food_2
     2 -> R.drawable.mock_food_3
     3 -> R.drawable.mock_food_4
     4 -> R.drawable.mock_food_5
     5 -> R.drawable.mock_food_6
-    else -> throw AssertionError("Math fucked")
+    else -> R.drawable.mock_food_1
 }

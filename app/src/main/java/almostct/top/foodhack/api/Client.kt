@@ -1,6 +1,7 @@
 package almostct.top.foodhack.api
 
 import almostct.top.foodhack.model.Account
+import almostct.top.foodhack.model.AddCommentRequest
 import almostct.top.foodhack.model.Comment
 import almostct.top.foodhack.model.Recipe
 import io.reactivex.Observable
@@ -24,11 +25,14 @@ interface Client {
     fun getTopComments(@Query("target") target: String, @Query("qty") qty: Int, @Query("step") stepId: Int = -1): Observable<List<Comment>>
 
     @POST("/postComment")
-    fun postComment(@Body comment: Comment): Observable<String>
+    fun postComment(@Body comment: AddCommentRequest): Observable<Comment>
 
 
     @GET("/usersRecipes")
     fun getUsersRecipes(@Query("topCount") topCount: Int, @Query("randomCount") randomCount: Int): Observable<List<Recipe>>
+
+    @GET("/allRecipes")
+    fun getAllRecipes(@Query("topCount") topCount: Int): Observable<List<Recipe>>
 
 
     @GET("/recognize")
