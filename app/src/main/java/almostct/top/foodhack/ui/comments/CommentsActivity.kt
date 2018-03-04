@@ -71,6 +71,7 @@ class CommentsActivity : AppCompatActivity() {
 
         inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             val textView by bindView<TextView>(R.id.comment_info_text)
+            val username by bindView<TextView>(R.id.comment_item_nickname)
             val cardView by bindView<CardView>(R.id.comment_card_view)
             val likeBtn by bindView<Button>(R.id.comment_likes)
             val dislikeBtn by bindView<Button>(R.id.comment_dislikes)
@@ -84,6 +85,7 @@ class CommentsActivity : AppCompatActivity() {
 
         override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
             val newItem = comments[position]
+            holder.username.text = newItem.account.handle
             holder.textView.text = newItem.text
             holder.likeBtn.text = newItem.likes.toString()
             holder.dislikeBtn.text = newItem.dislikes.toString()
