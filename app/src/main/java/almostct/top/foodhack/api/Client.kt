@@ -15,13 +15,13 @@ interface Client {
 
 
     @GET("/comments/all")
-    fun getAllCommetns(@Query("target") target: String): Observable<List<Comment>>
+    fun getAllComments(@Query("target") target: String, @Query("step") stepId: Int = -1): Observable<List<Comment>>
 
     @GET("/comments/top")
-    fun getTopCommetns(@Query("target") target: String): Observable<List<Comment>>
+    fun getTopComments(@Query("target") target: String, @Query("step") stepId: Int = -1): Observable<List<Comment>>
 
     @GET("/comments/top")
-    fun getTopCommetns(@Query("target") target: String, @Query("qty") qty: Int): Observable<List<Comment>>
+    fun getTopComments(@Query("target") target: String, @Query("qty") qty: Int, @Query("step") stepId: Int = -1): Observable<List<Comment>>
 
     @POST("/postComment")
     fun postComment(@Body comment: Comment): Observable<String>

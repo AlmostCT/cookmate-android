@@ -2,12 +2,11 @@ package almostct.top.foodhack.ui.recipe
 
 import activitystarter.Arg
 import almostct.top.foodhack.R
-import almostct.top.foodhack.model.DummyData
+import almostct.top.foodhack.model.Comment
 import almostct.top.foodhack.model.Recipe
-import almostct.top.foodhack.ui.comments.CommentsActivity
+import almostct.top.foodhack.ui.comments.CommentsActivityStarter
 import almostct.top.foodhack.ui.common.InjectableActivity
 import almostct.top.foodhack.ui.cooking.CookingActivity2Starter
-import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
 import android.support.v7.widget.Toolbar
@@ -19,7 +18,6 @@ import android.view.MenuItem
 import android.widget.TextView
 import android.widget.Toast
 import com.marcinmoskala.activitystarter.argExtra
-import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.content_recipe.*
@@ -27,9 +25,7 @@ import kotterknife.bindView
 
 class RecipeActivity() : InjectableActivity() {
     @get:Arg
-    var recipeId: String by argExtra()
-    @get:Arg
-    var recipeName: String by argExtra()
+    var recipe: Recipe by argExtra()
 
     val caloriesText by bindView<TextView>(R.id.recipe_energy_info_calories)
     val uText by bindView<TextView>(R.id.recipe_energy_info_u)
@@ -47,16 +43,18 @@ class RecipeActivity() : InjectableActivity() {
 
         val fab = findViewById(R.id.fab) as FloatingActionButton
         fab.setOnClickListener { view ->
-            CookingActivity2Starter.start(this, DummyData.pancake)
+            CookingActivity2Starter.start(this, recipe)
         }
 //        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
-        fetchUI(recipeId)
-        recipe_open_comments.setOnClickListener { startActivity(Intent(this, CommentsActivity::class.java)) }
+        fetchUI(recipe.recipeId)
+        recipe_open_comments.setOnClickListener {
+            CommentsActivityStarter.start(this, recipe.recipeId, -1)
+        }
     }
 
     override fun getActivityTitle(): String {
-        return recipeName
+        return recipe.name
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -70,17 +68,18 @@ class RecipeActivity() : InjectableActivity() {
         true
     } else false
 
-    fun fetchUI(receiptId: String) {
-        Observable.just(DummyData.pancake)
+    private fun fetchUI(receiptId: String) {
+        getClient().getTopComments(receiptId, qty = 2)
+            .zipWith(listOf(recipe), { a, b -> a to b })
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ updateUI(it) }, { Log.e("RECEIPT", "fetch succed", it) })
+            .subscribe({ (r, c) -> updateUI(c, r) }, { Log.e("RECEIPT", "fetch succed", it) })
     }
 
-    fun updateUI(receipt: Recipe) {
+    private fun updateUI(receipt: Recipe, comments: List<Comment>) {
         val txt = TextUtils.concat(
             resources.getText(R.string.recipe_general_info_cooktime),
-            "2 hours",
+            receipt.totalTime,
             "\n",
             resources.getText(R.string.recipe_general_info_weight),
             receipt.weight
@@ -92,8 +91,8 @@ class RecipeActivity() : InjectableActivity() {
         uText.text = receipt.carbohydrates
         descriptionView.text = receipt.tools
         recipe_steps.text = receipt.steps.joinToString(separator = "\n") { it.shortDescription }
-        val s1 = Html.fromHtml("<b>User1</b> wow")
-        val s2 = Html.fromHtml("<b>User2</b> foo")
+        val s1 = comments.getOrNull(0)?.let { Html.fromHtml("<b>${it.account.handle}</b> ${it.text}") } ?: ""
+        val s2 = comments.getOrNull(1)?.let { Html.fromHtml("<b>${it.account.handle}</b> ${it.text}") } ?: ""
         recipe_comments.text = TextUtils.concat(s1, "\n", s2)
     }
 }

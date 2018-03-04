@@ -35,7 +35,10 @@
                     android:paddingStart="@dimen/big_padding"
                     android:paddingTop="@dimen/medium_padding"
                     android:id="@+id/feed_item_text"
-                    android:layout_width="wrap_content"
+                    android:layout_width="@dimen/feed_recipe_height"
+                    android:ellipsize="end"
+                    android:scrollHorizontally="false"
+                    android:maxLines="1"
                     android:layout_height="wrap_content" />
 
                 <TextView
@@ -43,8 +46,11 @@
                     android:textColor="#FFFFFF"
                     android:paddingStart="@dimen/big_padding"
                     android:paddingTop="@dimen/medium_padding"
+                    android:layout_width="@dimen/feed_recipe_height"
+                    android:ellipsize="end"
+                    android:scrollHorizontally="false"
+                    android:maxLines="3"
                     android:id="@+id/feed_news_item_content"
-                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </LinearLayout>
         </FrameLayout>

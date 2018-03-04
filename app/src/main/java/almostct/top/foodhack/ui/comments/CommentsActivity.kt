@@ -1,9 +1,10 @@
 package almostct.top.foodhack.ui.comments
 
+import activitystarter.Arg
 import almostct.top.foodhack.R
 import almostct.top.foodhack.model.Comment
-import almostct.top.foodhack.model.DummyData
 import almostct.top.foodhack.ui.common.InjectableActivity
+import almostct.top.foodhack.ui.common.defaultSub
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
 import android.support.v7.app.AlertDialog
@@ -19,12 +20,19 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import com.marcinmoskala.activitystarter.argExtra
 import kotterknife.bindView
 
 
 class CommentsActivity : InjectableActivity() {
 
     val commentsView by bindView<RecyclerView>(R.id.comments_recycler)
+
+    @get:Arg
+    var target: String by argExtra()
+
+    @get:Arg
+    var stepId: Int by argExtra()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,12 +45,20 @@ class CommentsActivity : InjectableActivity() {
             newCommentBuilder()
         }
 
-        commentsView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        commentsView.adapter = CommentsAdapter(DummyData.comments)
+        fetchUI()
     }
 
     override fun getActivityTitle(): String {
         return getString(R.string.string_comments)
+    }
+
+    fun fetchUI() {
+        getClient().getAllComments(target, stepId).defaultSub { updateUI(it) }
+    }
+
+    fun updateUI(comments: List<Comment>) {
+        commentsView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        commentsView.adapter = CommentsAdapter(comments)
     }
 
     private fun newCommentBuilder() {

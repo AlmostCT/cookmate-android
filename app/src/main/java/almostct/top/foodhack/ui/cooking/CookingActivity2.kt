@@ -6,10 +6,9 @@ import almostct.top.foodhack.R
 import almostct.top.foodhack.api.Client
 import almostct.top.foodhack.api.RecognitionResponse
 import almostct.top.foodhack.model.Recipe
-import almostct.top.foodhack.ui.comments.CommentsActivity
+import almostct.top.foodhack.ui.comments.CommentsActivityStarter
 import almostct.top.foodhack.ui.common.InjectableActivity
 import android.Manifest
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.os.Build
@@ -117,7 +116,9 @@ class CookingActivity2 : InjectableActivity() {
         // Upon interacting with UI controls, delay any scheduled hide()
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
-        commentsButton.setOnClickListener { startActivity(Intent(this, CommentsActivity::class.java)) }
+        commentsButton.setOnClickListener {
+            CommentsActivityStarter.start(this, currentRecipe.recipeId, currentStep + 1)
+        }
         closeButton.setOnClickListener { finish() }
     }
 
@@ -236,7 +237,7 @@ class CookingActivity2 : InjectableActivity() {
         override fun onRecognitionDone(arg0: Recognizer?, arg1: Recognition?) {
             val s = arg1?.bestResultText?.trim()?.trimEnd('.').orEmpty()
             Toast.makeText(this@CookingActivity2, "Recognized: $s", Toast.LENGTH_SHORT).show()
-            cli.recognize("5a9b3e403cfe433ec0f5e775", currentStep + 1, s)
+            cli.recognize(currentRecipe.recipeId, currentStep + 1, s)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(responseHandler, { Log.e(LOG_TAG, "Succ", it) })

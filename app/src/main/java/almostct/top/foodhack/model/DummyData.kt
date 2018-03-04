@@ -55,7 +55,8 @@ object DummyData {
         totalTime = "40 минут",
         picture = null,
         ingredients = listOf(),
-        steps = listOf(step1, step2, step3, step4)
+        steps = listOf(step1, step2, step3, step4),
+        recipeId = "foo"
     )
 
 
