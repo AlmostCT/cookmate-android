@@ -170,7 +170,7 @@
             <TextView
                 android:padding="@dimen/medium_padding"
                 android:textSize="16sp"
-                android:text="@string/recipe_comments_header"
+                android:text="@string/string_comments"
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:layout_width="match_parent"

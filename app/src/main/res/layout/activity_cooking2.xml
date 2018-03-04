@@ -70,7 +70,7 @@
 
         <Button
             android:id="@+id/dummy_button"
-            style="?metaButtonBarButtonStyle"
+            android:background="#FFFFFF"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Comments" />

@@ -15,4 +15,5 @@
     <dimen name="fab_margin">16dp</dimen>
 
     <dimen name="avatar_side">36dp</dimen>
+    <dimen name="avatar_big_side">128dp</dimen>
 </resources>

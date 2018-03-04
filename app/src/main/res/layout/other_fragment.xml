@@ -4,9 +4,162 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="I'm other fragment"
-        android:textSize="30sp" />
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="@dimen/avatar_big_side"
+            android:layout_height="@dimen/avatar_big_side"
+            android:padding="@dimen/big_padding"
+            android:src="@drawable/no_avatar" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:gravity="center_vertical"
+                android:layout_weight="2"
+                android:text="Username"
+                android:textStyle="bold"
+                android:textSize="30sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:text="Rating: 3,1"
+                android:layout_gravity="top|start" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <include layout="@layout/separator" />
+
+    <TextView
+        android:padding="@dimen/medium_padding"
+        android:textSize="16sp"
+        android:text="@string/recipe_energy_info_header_profile"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <!-- TABLE -->
+
+    <GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/that_grid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:columnCount="4"
+        android:rowCount="2"
+        android:orientation="horizontal">
+
+        <!-- HEADER -->
+
+        <TextView
+            android:padding="@dimen/medium_padding"
+            android:textSize="16sp"
+            android:text="@string/recipe_energy_info_calories"
+            android:gravity="center"
+            android:layout_gravity="fill"
+            android:layout_columnWeight="1"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:padding="@dimen/medium_padding"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:text="@string/recipe_energy_info_b"
+            android:layout_gravity="fill"
+            android:layout_columnWeight="1"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:padding="@dimen/medium_padding"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:text="@string/recipe_energy_info_j"
+            android:layout_gravity="fill"
+            android:layout_columnWeight="1"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:padding="@dimen/medium_padding"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:text="@string/recipe_energy_info_u"
+            android:layout_gravity="fill"
+            android:layout_columnWeight="1"
+            android:layout_height="wrap_content" />
+
+        <!-- INFO -->
+
+        <TextView
+            android:padding="@dimen/medium_padding"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:id="@+id/recipe_energy_info_calories_p"
+            android:text="100500"
+            android:layout_gravity="fill"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:padding="@dimen/medium_padding"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:text="700"
+            android:id="@+id/recipe_energy_info_b_p"
+            android:layout_gravity="fill"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:padding="@dimen/medium_padding"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:text="800"
+            android:id="@+id/recipe_energy_info_j_p"
+            android:layout_gravity="fill"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:padding="@dimen/medium_padding"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:text="2020"
+            android:id="@+id/recipe_energy_info_u_p"
+            android:layout_gravity="fill"
+            android:layout_height="wrap_content" />
+    </GridLayout>
+
+    <include layout="@layout/separator" />
+
+    <TextView
+        android:padding="@dimen/medium_padding"
+        android:textSize="16sp"
+        android:text="@string/achievements_header_profile"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_marginStart="@dimen/medium_padding"
+        android:id="@+id/profile_achievements"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </android.support.v7.widget.RecyclerView>
+
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="I'm other fragment"-->
+    <!--android:textSize="30sp" />-->
 </LinearLayout>

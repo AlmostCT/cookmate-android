@@ -11,19 +11,21 @@
     <string name="recipe_general_info_cooktime"><b>Cook time: </b></string>
     <string name="recipe_general_info_weight"><b>Weight: </b></string>
     <string name="recipe_energy_info_header"><b>Energy info</b></string>
+    <string name="recipe_energy_info_header_profile"><b>Energy info – week stats</b></string>
+    <string name="achievements_header_profile"><b>Achievements</b></string>
     <string name="recipe_energy_description_header"><b>Description</b></string>
     <string name="recipe_steps_description_header"><b>Steps</b></string>
-    <string name="recipe_comments_header"><b>Comments</b></string>
     <string name="recipe_energy_info_calories"><b>Calories</b></string>
     <string name="recipe_energy_info_b"><b>Proteins</b></string>
     <string name="recipe_energy_info_j"><b>Fats</b></string>
     <string name="recipe_energy_info_u"><b>Carbons</b></string>
     <string name="start">Start!</string>
 
+    <string name="string_comments">Discuss</string>
+
     <string name="title_activity_cooking">CookingActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
-    <string name="title_activity_comments">Comments</string>
     <string name="new_comment_dialog_title">New comment</string>
     <string name="you_ve_did_it">You\'ve did it!</string>
     <string name="share_with_friends">Share with friends</string>

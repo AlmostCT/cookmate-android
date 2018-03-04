@@ -42,7 +42,7 @@ class CommentsActivity : InjectableActivity() {
     }
 
     override fun getActivityTitle(): String {
-        return getString(R.string.title_activity_comments)
+        return getString(R.string.string_comments)
     }
 
     private fun newCommentBuilder() {

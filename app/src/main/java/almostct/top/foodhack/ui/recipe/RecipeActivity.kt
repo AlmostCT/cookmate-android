@@ -3,7 +3,7 @@ package almostct.top.foodhack.ui.recipe
 import activitystarter.Arg
 import almostct.top.foodhack.R
 import almostct.top.foodhack.model.DummyData
-import almostct.top.foodhack.model.Receipt
+import almostct.top.foodhack.model.Recipe
 import almostct.top.foodhack.ui.comments.CommentsActivity
 import almostct.top.foodhack.ui.common.InjectableActivity
 import almostct.top.foodhack.ui.cooking.CookingActivity2Starter
@@ -77,13 +77,13 @@ class RecipeActivity() : InjectableActivity() {
             .subscribe({ updateUI(it) }, { Log.e("RECEIPT", "fetch succed", it) })
     }
 
-    fun updateUI(receipt: Receipt) {
+    fun updateUI(receipt: Recipe) {
         val txt = TextUtils.concat(
             resources.getText(R.string.recipe_general_info_cooktime),
             "2 hours",
             "\n",
             resources.getText(R.string.recipe_general_info_weight),
-            "${receipt.weight}"
+            receipt.weight
         )
         generalText.text = txt
         caloriesText.text = receipt.calories
