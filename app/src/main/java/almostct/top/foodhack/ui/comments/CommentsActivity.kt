@@ -92,7 +92,7 @@ class CommentsActivity : AppCompatActivity() {
             holder.cardView.setOnClickListener {
                 Toast.makeText(
                     this@CommentsActivity,
-                    newItem.commentId,
+                    newItem.text,
                     Toast.LENGTH_SHORT
                 ).show()
             }

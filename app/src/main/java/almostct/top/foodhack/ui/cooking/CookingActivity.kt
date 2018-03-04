@@ -5,7 +5,7 @@ import almostct.top.foodhack.App
 import almostct.top.foodhack.R
 import almostct.top.foodhack.api.Client
 import almostct.top.foodhack.api.RecognitionResponse
-import almostct.top.foodhack.model.Receipt
+import almostct.top.foodhack.model.Recipe
 import almostct.top.foodhack.ui.comments.CommentsActivity
 import almostct.top.foodhack.ui.common.InjectableActivity
 import android.Manifest.permission.RECORD_AUDIO
@@ -49,7 +49,7 @@ import java.lang.Math.abs
 class CookingActivity : InjectableActivity() {
 
     @get:Arg
-    var currentRecipe: Receipt by argExtra()
+    var currentRecipe: Recipe by argExtra()
 
     private lateinit var cli: Client
 
