@@ -239,7 +239,7 @@ class CookingActivity2 : InjectableActivity() {
 
         override fun onRecognitionDone(arg0: Recognizer?, arg1: Recognition?) {
             val s = arg1?.bestResultText?.trim()?.trimEnd('.').orEmpty()
-            Toast.makeText(this@CookingActivity2, "Recognized: $s", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this@CookingActivity2, "Распознано: $s", Toast.LENGTH_SHORT).show()
             cli.recognize(currentRecipe.recipeId, currentStep + 1, s)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

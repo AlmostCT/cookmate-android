@@ -85,7 +85,7 @@
         android:layout_height="match_parent">
 
         <ImageView
-            android:src="@drawable/plus_one_achievement"
+            android:src="@drawable/pancake_achievement"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:padding="@dimen/big_padding"
