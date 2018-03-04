@@ -32,7 +32,8 @@ class OtherFragment() : Fragment() {
         profile_achievements.adapter = AchievementsAdapter(
             listOf(
                 DummyData.firstLoveAchievement,
-                DummyData.pancakeAchievement
+                DummyData.pancakeAchievement,
+                DummyData.firstRunAchievement
             )
         )
     }

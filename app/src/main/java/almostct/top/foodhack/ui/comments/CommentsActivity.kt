@@ -83,7 +83,8 @@ class CommentsActivity : InjectableActivity() {
                     this,
                     text,
                     Toast.LENGTH_SHORT
-                ).show()
+                )
+//                    .show()
                 getClient().postComment(AddCommentRequest(testAccountId, target, stepId, text))
                     .concatMap { fetchUI() }
                     .defaultSub { updateUI(it) }

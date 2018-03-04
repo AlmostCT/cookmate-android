@@ -68,7 +68,7 @@ class FeedFragment() : Fragment() {
         newsView.adapter = NewsAdapter(
             listOf(
                 FeedNewsElement("Рецепт месяца", "Голосуйте за лучший рецепт месяца!"),
-                FeedNewsElement("Скидки", "Скидки до 30% в Пртии Еды")
+                FeedNewsElement("Скидки", "Скидки до 30% в Партии Еды")
             )
         )
         featuredViews.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
